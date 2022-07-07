@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('welcome');
         return 'index';
-        return view('news.home', compact('sliders', 'types','sales','rents'));
     }
 }

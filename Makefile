@@ -6,4 +6,5 @@
 install:
 	echo "Docker Exec";\
 	sudo docker exec -it php-kedemik composer install
-
+enter:
+	sudo docker exec -it php-kedemik /bin/sh

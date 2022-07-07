@@ -34,7 +34,8 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=kedemik
     volumes:
-      - ${PWD}/kedemik.sql:/docker-entrypoint-initdb.d/kedemik.sql
+      # - ${PWD}/kedemik.sql:/docker-entrypoint-initdb.d/kedemik.sql
+      - ${PWD}/kedemik.sql:/var/lib/mysql
     networks:
       - appnetwork
 

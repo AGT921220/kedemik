@@ -2,15 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cotizacion;
-use App\Propertie;
-use Illuminate\Http\Request;
-use App\Propiedad;
-use App\Publication;
-use App\Slider;
-use App\User;
-use Illuminate\Support\Facades\Hash;
-
 class HomeController extends Controller
 {
     /**

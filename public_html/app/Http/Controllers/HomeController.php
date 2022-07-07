@@ -29,21 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        // dd($users->toArray());
-        $properties = new Propertie();
-        $properties = $properties
-        ->select('properties.*', 'properties_types.name as type')
-        ->join('properties_types', 'properties_types.id', 'properties.propertie_type')
-        ->where('properties.news', 1)
-        ->get();
-        $types = Propertie::SALE_RENT;
-
-        $rents = $properties->where('sale_rent', 'rent');
-        $sales = $properties->where('sale_rent', 'sale');
-
-        $sliders = new Slider();
-        $sliders = $sliders->get();
+        return 'index';
         return view('news.home', compact('sliders', 'types','sales','rents'));
     }
 }

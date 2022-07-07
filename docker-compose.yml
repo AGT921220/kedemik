@@ -31,7 +31,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_USER=kedemik
-      - MYSQL_PASSWORD=EmmaIqDatabase
+      - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=kedemik
     # volumes:
     #   - ${PWD}/kedemik.sql:/docker-entrypoint-initdb.d/kedemik.sql

@@ -1,0 +1,50 @@
+.sales_item,
+.appraise_item,
+.infonavit_item,
+.fovissste_item,
+.asesoria_item,
+.construccion_item,
+#pagination span {
+    cursor: pointer;
+}
+.sale_house_item {
+    cursor: pointer;
+    display: flex;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.sale_house_item .image_container_house
+{
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    width: 250px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+    border-radius: 10px;
+}
+.sale_house_item .container_house{
+    display: flex;
+    flex-direction: column;
+    max-width: 550px;
+    position: relative;
+    width: 60%;
+    height: 200px;
+}
+.sale_house_item .back_house
+{
+    position: absolute;
+        left: -10px;
+        height: 100%;
+        z-index: 1000000;
+        background: white;
+        padding: 10px;
+}
+.sale_house_item h3{
+    text-align: center;
+}
+.sale_house_item:hover {
+    box-shadow: 3px 0px 10px 3px #1e20247a;
+}

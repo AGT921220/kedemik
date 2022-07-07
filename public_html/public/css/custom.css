@@ -1,0 +1,29 @@
+.container_nav
+{
+    flex-direction: column !important;
+}
+.header_info
+{
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    text-align: center;
+    align-items: center;
+}
+.navbar-nav .nav-link
+{
+    font-size: 1em !important;
+    color: #ffffff !important;
+}
+nav
+{
+    background-color: #3a4149 !important;
+}
+.navbar-default.navbar-trans .nav-link:before, .navbar-default.navbar-reduce .nav-link:before
+{
+    background-color: blue !important;
+}
+.navbar-nav
+{
+    background-color: #35363a;
+}

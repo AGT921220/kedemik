@@ -1,6 +1,11 @@
 /vendor/
 kedemik.sql/
 nginx/
+/nginx
+/nginx/
+/kedemik.sql
+/kedemik.sql/
+/.vscode
 node_modules/
 npm-debug.log
 yarn-error.log

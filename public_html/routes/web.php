@@ -21,3 +21,4 @@ Route::resource('/home', 'Dashboard\HomeController')->only(['index']);
 
 Route::resource('/dashboard/clientes', 'Dashboard\ClientController');
 Route::resource('/dashboard/vales', 'Dashboard\VoucherController');
+Route::resource('/dashboard/payments', 'Dashboard\PaymentController');

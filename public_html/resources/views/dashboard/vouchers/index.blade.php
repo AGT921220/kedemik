@@ -23,12 +23,12 @@
      
                             @foreach ($vouchers as $item)
                             <tr>
-                                <td>
+                                <td style="border-top:1px solid #3c8dbc !important">
                                     <img style="width:50px; height:50px" src="{{ asset($item->user->user_profile) }}">
                                     {{ $item->user->name }}
 
                                 </td>
-                                <td>
+                                <td style="border-top:1px solid #3c8dbc !important">
                                     {{ count($item->payments) }} de
                                     {{ $item->total_payments }}
                                     @if(count($item->payments)>=1)
@@ -43,20 +43,24 @@
 
                                      @endif
                                 </td>
-                                <td>
+                                <td style="border-top:1px solid #3c8dbc !important">
 
-                                    <form class="col-md-10" method="POST" action="/dashboard/payments/store"
+                                    <form class="col-md-10" method="POST" action="/dashboard/payments/"
                                     enctype="multipart/form-data">
                                     @csrf
-                                        
+
+                                    <div>
+
                                     <input type="hidden" name="voucher_id" value={{$item->id}}>
                                     <div class="form-group col-md-4">
                                         <label>Fecha</label>
-                                        <input type="date">
+                                        <input class="datepicker" type="date" name="date_payment">
                                     </div>
     
             
                                     <button class="btn btn-primary btn-block" type="submit">Agregar Pago</button>
+                                </div>
+
                                 </form>
     
 
@@ -107,7 +111,6 @@
         margin: 1em auto;
     }
 </style>
-
 
 <script src="{{ asset('js/datatables.js') }}" defer></script>
 <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">

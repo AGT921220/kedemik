@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    const ADMIN_USER_ID = 1;
     use Notifiable;
     use SoftDeletes;
     /**

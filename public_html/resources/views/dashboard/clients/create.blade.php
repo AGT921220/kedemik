@@ -7,55 +7,30 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header mb-2" style="    display: flex;justify-content: space-between;">
-          <span>Agregar Asesorias</span>
-          <a href="/dashboard/asesorias" class="btn btn-primary btn-sm">Volver a lista de asesorias...</a>
+          <span>Agregar Clientes</span>
+          <a href="/dashboard/clientes" class="btn btn-primary btn-sm">Volver a lista de Clientes...</a>
         </div>
         <div class="card-body">
 
-          <form method="POST" action="/dashboard/asesorias" enctype="multipart/form-data">
+          <form method="POST" action="/dashboard/clientes" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" name="name" placeholder="Nombre de asesorias" class="form-control mb-2" required=""
+              <input type="text" name="name" placeholder="Nombre de Cliente" class="form-control mb-2" required=""
                 {{ old('name') }} />
             </div>
 
             <div class="form-group">
-              <label>Descripción</label>
-              <input type="text" name="description" placeholder="Descripción" class="form-control mb-2" required="" {{
-                old('description') }} />
-            </div>
-
-            <div class="form-group">
-              <label>Url</label>
-              <input type="text" name="url" placeholder="Url" class="form-control mb-2"
-                {{ old('url') }} />
-            </div>
-            <div class="form-group">
-              <label>Imágen Principal</label>
+              <label>Foto</label>
               <div class="form-group image_container"
                 style="justify-content: center;text-align: center;align-items: center;display: flex;flex-direction: column;margin: auto;">
                 <img class="profile_image_show" style="width:100px;" src="{{ asset('images/no-image.png') }}">
                 <label for="imagen_profile" style="cursor:pointer;">Seleccionar imágen</label>
-                <input style="display: none;" type="file" name="imagen" id="imagen_profile"
+                <input style="display: none;" type="file" name="image" id="imagen_profile"
                   accept="image/x-png,image/gif,image/jpeg">
               </div>
             </div>
-
-
-            <div class="form-group" style="justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column;">
-              <label>Mostrar en News?</label>
-              <label class="switch">
-                <input type="checkbox" name="news">
-                <span class="slider round"></span>
-              </label>
-              
-            </div>
-
 
 
 

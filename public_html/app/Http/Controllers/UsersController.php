@@ -16,7 +16,4 @@ class UsersController extends Controller
 
         return view('dashboard.users.profile',compact('usuario'));
     }
-
-
-
 }

@@ -13,7 +13,12 @@
 
 <ul class="sidebar-menu" data-widget="tree">
 
-    @switch(auth()->user()->type)
+
+  @include('layouts.menu.clients')
+  @include('layouts.menu.vouchers')
+
+
+    {{-- @switch(auth()->user()->type)
     @case('admin')
     @include('layouts.menu.sliders')
     @include('layouts.menu.propiedades')
@@ -42,7 +47,7 @@
 
     @default
 
-    @endswitch
+    @endswitch --}}
 
     </li>
 

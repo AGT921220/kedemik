@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <span>Lista de Construcción</span>
+                    <span>Lista de Clientes</span>
                 </div>
 
                 <div class="card-body" style="overflow-x:scroll">
@@ -14,25 +14,16 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
                                 <th scope="col">Imágen</th>
-                                <th scope="col">Url</th>
-                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
      
-                            @foreach ($constructions as $item)
+                            @foreach ($clients as $item)
                             <tr>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->description }}</td>
                                 <td>
-                                    <img style="width:50px; height:50px" src="{{ asset($item->image) }}">
-                                </td>
-                                <td>{{ $item->url }}</td>
-
-                                <td>
-                                    EDITAR/ELIMINAR
+                                    <img style="width:50px; height:50px" src="{{ asset($item->user_profile) }}">
                                 </td>
                             </tr>
                             @endforeach
@@ -40,10 +31,7 @@
                         <tfoot>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
                                 <th scope="col">Imágen</th>
-                                <th scope="col">Url</th>
-                                <th scope="col">Acciones</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -51,7 +39,7 @@
                     {{-- fin card body --}}
                 </div>
 
-                <a href="/dashboard/construccion-y-remodelacion/create" class="btn btn-primary btn-sm">Nueva Construcción</a>
+                <a href="/dashboard/clientes/create" class="btn btn-primary btn-sm">Nuevo Cliente</a>
             </div>
         </div>
     </div>

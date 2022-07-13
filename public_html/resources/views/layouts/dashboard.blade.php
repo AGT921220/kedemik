@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IQ | DASHBOARD</title>
+  <title>KEDEMIK | DASHBOARD</title>
 
 
   <!-- Tell the browser to be responsive to screen width -->
@@ -46,9 +46,9 @@
       <!-- Logo -->
       <a class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>I</b>N</span>
+        <span class="logo-mini"><b>K</b>M</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>IQ</b>NEWS</span>
+        <span class="logo-lg"><b>KEDE</b>MIK</span>
       </a>
 
       
@@ -121,36 +121,10 @@
         <ul class="sidebar-menu" data-widget="tree">
           <li class="header">Menú</li>
 
-          @switch(auth()->user()->type)
-          @case('admin')
-          @include('layouts.menu.sliders')
-          @include('layouts.menu.propiedades')
-          @include('layouts.menu.avaluos')
-          @include('layouts.menu.infonavit')
-          @include('layouts.menu.fovissste')
-          @include('layouts.menu.asesoria')
-          @include('layouts.menu.construccion')
 
-          @break
-          @case('avaluos')
-          @include('layouts.menu.avaluos')
-          @break
-          @case('infonavit')
-          @include('layouts.menu.infonavit')
-          @break
-          @case('fovissste')
-          @include('layouts.menu.fovissste')
-          @break
-          @case('asesoria')
-          @include('layouts.menu.asesoria')
-          @break
-          @case('construccion')
-          @include('layouts.menu.construccion')
-          @break
+          @include('layouts.menu.clients')
+          @include('layouts.menu.vouchers')
 
-          @default
-
-          @endswitch
 
           </li>
 

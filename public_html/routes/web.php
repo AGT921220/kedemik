@@ -18,3 +18,6 @@ Auth::routes();
 
 Route::resource('/', 'HomeController')->only(['index']);
 Route::resource('/home', 'Dashboard\HomeController')->only(['index']);
+
+Route::resource('/dashboard/clientes', 'Dashboard\ClientController');
+Route::resource('/dashboard/vales', 'Dashboard\VoucherController');

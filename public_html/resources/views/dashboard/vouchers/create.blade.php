@@ -7,38 +7,43 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header mb-2" style="    display: flex;justify-content: space-between;">
-          <span>Editar sliders</span>
-          <a href="/dashboard/sliders" class="btn btn-primary btn-sm">Volver a lista de sliders...</a>
+          <span>Agregar Vale</span>
+          <a href="/dashboard/vales" class="btn btn-primary btn-sm">Volver a lista de Vales...</a>
         </div>
         <div class="card-body">
 
-          <form method="POST" action="/dashboard/sliders/{{$slider->id}}" enctype="multipart/form-data">
-            @method('PUT')
+          <form method="POST" action="/dashboard/vales" enctype="multipart/form-data">
             @csrf
 
-            <div class="form-group">
-              <label>Descripción</label>
-              <input type="text" name="description" value="{{$slider->description}}" placeholder="Descripción" class="form-control mb-2" required="" {{
-                old('description') }} />
-            </div>
 
             <div class="form-group">
-              <label>Url</label>
-              <input type="text" name="url" value="{{$slider->url}}" placeholder="Url" class="form-control mb-2"
-                {{ old('url') }} />
+              <label>Cliente</label>
+              <select class="form-control" name="user_id">
+                @foreach($clients as $item)
+                <option value="{{$item->id}}">{{$item->name}}</option>
+                @endforeach
+              </select>
+            </div>
+
+
+            <div class="form-group">
+              <label>Cantidad</label>
+              <input type="number" step="any" name="total" placeholder="$" class="form-control mb-2" required=""
+                {{ old('total') }} />
             </div>
             <div class="form-group">
-              <label>Imágen Principal</label>
-              <div class="form-group image_container"
-                style="justify-content: center;text-align: center;align-items: center;display: flex;flex-direction: column;margin: auto;">
-                <img class="profile_image_show" style="width:100px;" src="{{ asset(($slider->image)?$slider->image:'images/no-image.png') }}">
-
-                <label for="imagen_profile" style="cursor:pointer;">Seleccionar imágen</label>
-                <input style="display: none;" type="file" name="imagen" id="imagen_profile"
-                  accept="image/x-png,image/gif,image/jpeg">
-              </div>
+              <label>Número de Pagos</label>
+ 
+              <select class="form-control" name="payments">
+                @for($i = 1; $i <= 30; $i++)
+                <option value="{{$i}}">{{$i}}</option>                  
+                @endfor
+              </select>
             </div>
-            <button class="btn btn-primary btn-block" type="submit">Editar</button>
+
+
+            <button class="btn btn-primary btn-block" type="submit">Agregar</button>
+
           </form>
         </div>
       </div>

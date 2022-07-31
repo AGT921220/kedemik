@@ -9,11 +9,8 @@ use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    private $maxPayments = 0;
     public function index()
     {
         $vouchers = Voucher::select('user_id', 'vouchers.id', 'vouchers.payments as total_payments', 'vouchers.total')
@@ -34,19 +31,11 @@ class VoucherController extends Controller
 
         $vouchers = $vouchers->where('available', true);
 
-        $printableVouchers = $vouchers->whereNotNull('payments');
+        $printableVouchers = $this->getPrintableVouchers($vouchers->whereNotNull('payments'));
 
-        $printableVouchers = $printableVouchers->map(function ($voucher) {
-            $voucher->payments_count = count($voucher->payments);
-            $voucher->last_payment_date = ($voucher->payments->last()) ? $voucher->payments->last()->date_payment : false;
-            return $voucher;
-        });
 
-        $printableVouchers = $printableVouchers->where('last_payment_date', '!=',false)->groupBy('user_id');
-
-         return $printableVouchers;
-
-        return view('dashboard.vouchers.index', compact('vouchers'));
+        return $printableVouchers->first();
+        return view('dashboard.vouchers.index', compact('vouchers', 'printableVouchers'));
     }
 
     public function create()
@@ -109,5 +98,36 @@ class VoucherController extends Controller
 
         $vouchers = $vouchers->where('available', false);
         return view('dashboard.history.index', compact('vouchers'));
+    }
+
+    private function getPrintableVouchers($printableVouchers)
+    {
+        $printableVouchers = $printableVouchers->transform(function ($voucher) {
+            $voucher->payments_count = count($voucher->payments);
+            $voucher->last_payment_date = ($voucher->payments->last()) ? $voucher->payments->last()->date_payment : false;
+            if ($voucher->payments_count > $this->maxPayments) {
+                $this->maxPayments = $voucher->payments_count;
+            }
+
+            return $voucher;
+        });
+
+        $this->maxPayments--;
+        $printableVouchers = $printableVouchers->transform(function ($voucher) {
+
+            $payments = $voucher->payments->toArray();
+            $printables = [];
+            for ($i = 0; $i <= $this->maxPayments; $i++) {
+
+                $item = (isset($payments[$i])) ? $payments[$i]['date_payment'] : '';
+          
+                $printables[] = $item;
+            }
+            $voucher->printables = $printables;
+            return $voucher;
+        });
+
+
+        return $printableVouchers->where('last_payment_date', '!=', false)->groupBy('user_id');
     }
 }

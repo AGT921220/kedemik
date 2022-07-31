@@ -138,8 +138,7 @@
              justify-content: space-between;    width: 100%;display: flex;
     flex-wrap: wrap;
     margin: auto;">
-                @foreach ($vouchers as $item)
-                    @if (count($item->payments) >= 1)
+                @foreach ($printableVouchers as $item)
                         <div class="print_modal_item col-md-3">
 
                                 <table class="table">
@@ -184,7 +183,6 @@
                                 </table>
                         </div>
                         <br>
-                    @endif
                 @endforeach
             </div>
             </div>

@@ -8,7 +8,7 @@ $(document).on("click", ".show_modal", function () {
 });
 
 
-$(document).on("click", ".show_modal", function () {
+$(document).on("click", ".show_modal_", function () {
     var node = document.getElementById('print_modal');
 
     domtoimage.toPng(node)

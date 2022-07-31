@@ -16,15 +16,37 @@ class VoucherController extends Controller
      */
     public function index()
     {
-        $vouchers = Voucher::
-        select('user_id','vouchers.id','vouchers.payments as total_payments','vouchers.total')
-        ->with('payments')
-        ->with('user')
-        ->get();
+        $vouchers = Voucher::select('user_id', 'vouchers.id', 'vouchers.payments as total_payments', 'vouchers.total')
+            ->with('payments')
+            ->with('user')
+            ->where('vouchers.type', 'regular')
+            ->get();
 
-        // dd($vouchers->toArray());
+        $vouchers = $vouchers->map(function ($voucher) {
+            $voucher->available = false;
+            if (count($voucher->payments) < $voucher->total_payments) {
+                $voucher->available = true;
+            }
+
+            return $voucher;
+        });
+
+
+        $vouchers = $vouchers->where('available', true);
+
+        $printableVouchers = $vouchers->whereNotNull('payments');
+
+        $printableVouchers = $printableVouchers->map(function ($voucher) {
+            $voucher->payments_count = count($voucher->payments);
+            $voucher->last_payment_date = ($voucher->payments->last()) ? $voucher->payments->last()->date_payment : false;
+            return $voucher;
+        });
+
+        $printableVouchers = $printableVouchers->where('last_payment_date', '!=',false)->groupBy('user_id');
+
+         return $printableVouchers;
+
         return view('dashboard.vouchers.index', compact('vouchers'));
-
     }
 
     public function create()
@@ -37,59 +59,55 @@ class VoucherController extends Controller
     {
 
         $voucher = new Voucher();
-        $voucher->user_id=$request->user_id;
-        $voucher->payments=$request->payments;
-
-        $voucher->total=$request->total;
+        $voucher->user_id = $request->user_id;
+        $voucher->payments = $request->payments;
+        $voucher->type = $request->type;
+        $voucher->total = $request->total;
         if ($voucher->save()) {
             return back()->with('success', 'Vale Creado');
         }
         return back()->with('Error', 'Ha ocurrido un error');
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function history()
     {
-        //
+        $vouchers = Voucher::select('user_id', 'vouchers.id', 'vouchers.payments as total_payments', 'vouchers.total')
+            ->with('payments')
+            ->with('user')
+            ->where('vouchers.type', 'regular')
+            ->get();
+
+        $vouchers = $vouchers->map(function ($voucher) {
+            $voucher->available = false;
+            if (count($voucher->payments) < $voucher->total_payments) {
+                $voucher->available = true;
+            }
+
+            return $voucher;
+        });
+
+        $vouchers = $vouchers->where('available', false);
+        return view('dashboard.history.index', compact('vouchers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function historyElectronics()
     {
-        //
-    }
+        $vouchers = Voucher::select('user_id', 'vouchers.id', 'vouchers.payments as total_payments', 'vouchers.total')
+            ->with('payments')
+            ->with('user')
+            ->where('vouchers.type', 'electronics')
+            ->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $vouchers = $vouchers->map(function ($voucher) {
+            $voucher->available = false;
+            if (count($voucher->payments) < $voucher->total_payments) {
+                $voucher->available = true;
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            return $voucher;
+        });
+
+        $vouchers = $vouchers->where('available', false);
+        return view('dashboard.history.index', compact('vouchers'));
     }
 }

@@ -39,6 +39,18 @@
                 <option value="{{$i}}">{{$i}}</option>                  
                 @endfor
               </select>
+
+  
+
+            </div>
+
+            <div class="form-group">
+              <label>Tipo de Vale</label>
+              <select class="form-control" name="type">
+                <option selected="" value="regular">Regular</option>                  
+                <option value="electronics">Kedemik Electronics</option>                  
+              </select>
+  
             </div>
 
 

@@ -124,6 +124,8 @@
 
           @include('layouts.menu.clients')
           @include('layouts.menu.vouchers')
+          @include('layouts.menu.reports')
+          @include('layouts.menu.history')
 
 
           </li>

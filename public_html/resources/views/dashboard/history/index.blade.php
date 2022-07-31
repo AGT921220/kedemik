@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <span>Lista de Vales</span>
+                        <span>Historial Kedemik</span>
                     </div>
 
                     <div class="card-body" style="overflow-x:scroll">

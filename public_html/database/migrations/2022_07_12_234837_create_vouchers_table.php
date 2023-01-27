@@ -20,6 +20,7 @@ class CreateVouchersTable extends Migration
             $table->decimal('total');
             $table->timestamps();
             $table->softDeletes();
+            $table->string('type');
 
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');

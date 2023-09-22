@@ -8,7 +8,12 @@
       <div class="card">
         <div class="card-header mb-2" style="    display: flex;justify-content: space-between;">
           <span>Agregar Vale</span>
-          <a href="/dashboard/vales" class="btn btn-primary btn-sm">Volver a lista de Vales...</a>
+
+          <div>
+            <a href="/dashboard/vales" class="btn btn-primary btn-sm">Volver a lista de Vales</a>
+            <a href="/dashboard/vales-electronics" class="btn btn-primary btn-sm">Volver a lista de Vales Kedemik</a>  
+          </div>
+
         </div>
         <div class="card-body">
 

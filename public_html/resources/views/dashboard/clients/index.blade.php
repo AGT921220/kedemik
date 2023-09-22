@@ -14,7 +14,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Dirección</th>
                                 <th scope="col">Imágen</th>
+                                <th scope="col">Fecha de Creación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,16 +25,23 @@
                             @foreach ($clients as $item)
                             <tr>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->address }}</td>
                                 <td>
                                     <img style="width:50px; height:50px" src="{{ asset($item->user_profile) }}">
                                 </td>
+                                <td>{{ $item->creation_date }}</td>
+
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Dirección</th>
                                 <th scope="col">Imágen</th>
+                                <th scope="col">Fecha de Creación</th>
                             </tr>
                         </tfoot>
                     </table>

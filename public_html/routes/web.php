@@ -11,10 +11,30 @@
 |
 */
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
+
+Route::get('/clear-cache', function () {
+    // Limpia la caché de Laravel
+    Artisan::call('cache:clear');
+
+    // Limpia la caché de configuración
+    Artisan::call('config:clear');
+
+    // Limpia la caché de rutas
+    Artisan::call('route:clear');
+
+    // Limpia la caché de vistas (opcional)
+    Artisan::call('view:clear');
+
+    // Limpia la caché de configuración de opcache (PHP)
+    opcache_reset();
+
+    return "Cachés limpiadas correctamente.";
+});
 
 Route::resource('/', 'HomeController')->only(['index']);
 
@@ -28,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     
     Route::resource('/dashboard/payments', 'Dashboard\PaymentController');
+    Route::resource('/dashboard/bulk-payments', 'Dashboard\BulkPaymentController');
 
 
 

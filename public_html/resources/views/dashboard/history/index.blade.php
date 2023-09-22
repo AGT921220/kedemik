@@ -131,6 +131,8 @@
                 <h2 class="mb-4 text-center">Comprobantes de Pago</h2>
 
              <a class="close_modal">Cerrar</a> 
+             <a class="modal_print_btn">Imprimir</a>
+
              {{-- <a class="modal_print_btn">Imprimir</a>  --}}
  
              
@@ -236,7 +238,7 @@
         height: 100vh;
     }
 
-    .close_modal {
+    .close_modal,.modal_print_btn {
         margin-right: 0;
         margin-top: 0;
         position: absolute;
@@ -245,6 +247,9 @@
         right: 2em;
         cursor: pointer;
         font-size: 1.5em;
+    }
+    .modal_print_btn{
+        margin-top: 40px !important;
     }
 
     /* .print_modal_item {

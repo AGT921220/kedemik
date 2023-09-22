@@ -8,8 +8,11 @@ $(document).on("click", ".show_modal", function () {
 });
 
 
-$(document).on("click", ".show_modal_", function () {
+$(document).on("click", ".modal_print_btn", function () {
     var node = document.getElementById('print_modal');
+
+
+    $('.modal_print_btn,.close_modal').css('display','none');
 
     domtoimage.toPng(node)
         .then(function (dataUrl) {
@@ -29,6 +32,9 @@ $(document).on("click", ".show_modal_", function () {
             console.error('oops, something went wrong!', error);
         });
 
+        setTimeout(function () {
+            $('.modal_print_btn,.close_modal').css('display','block');
+          }, 1000);
 
 });
 

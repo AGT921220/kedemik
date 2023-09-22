@@ -28,14 +28,15 @@ class VoucherController extends Controller
             return $voucher;
         });
 
-
         $vouchers = $vouchers->where('available', true);
 
-        $printableVouchers = $this->getPrintableVouchers($vouchers->whereNotNull('payments'));
 
-
-        return $printableVouchers->first();
-        return view('dashboard.vouchers.index', compact('vouchers', 'printableVouchers'));
+        $printableVouchers = $this->getVouchersForPrint($vouchers->where('payments', '!=', null)
+        ->where('payments', '!=', '[]')
+        ->where('payments', '!=', []));
+        $type = 'KEDEMIK';
+        
+        return view('dashboard.vouchers.index', compact('vouchers', 'printableVouchers','type'));
     }
 
     public function create()
@@ -100,34 +101,37 @@ class VoucherController extends Controller
         return view('dashboard.history.index', compact('vouchers'));
     }
 
-    private function getPrintableVouchers($printableVouchers)
+    private function getVouchersForPrint($vouchers)
     {
-        $printableVouchers = $printableVouchers->transform(function ($voucher) {
-            $voucher->payments_count = count($voucher->payments);
-            $voucher->last_payment_date = ($voucher->payments->last()) ? $voucher->payments->last()->date_payment : false;
-            if ($voucher->payments_count > $this->maxPayments) {
-                $this->maxPayments = $voucher->payments_count;
-            }
+        $userPayments = $vouchers->groupBy('user_id');
+        return $userPayments->map(function ($vouchers) {
+            $printables = $this->getLastPaymentForVoucher($vouchers);  
+            $vouchers->put('printables', $printables); 
+            $vouchers->put('client', $vouchers->first()->user->name); 
 
-            return $voucher;
+            return $vouchers;
+        });        
+    }
+    
+    private function getLastPaymentForVoucher($vouchers)
+    {
+
+        return $vouchers->map(function ($voucher)
+        {
+            $payment = $voucher->payments->last();
+            $payment->total_payments=$voucher->total_payments;
+            $payment->payments=$voucher->payments->count();
+            $payment->total = $voucher->total;
+
+            $amount = $voucher->total/$voucher->total_payments;
+            $payment->amount = $amount;
+            $payment->new_balance = $this->getNewBalance($voucher->total, $amount, $voucher->payments->count());
+            $payment->previous_balance = $payment->new_balance+$amount;
+            return $payment;
         });
-
-        $this->maxPayments--;
-        $printableVouchers = $printableVouchers->transform(function ($voucher) {
-
-            $payments = $voucher->payments->toArray();
-            $printables = [];
-            for ($i = 0; $i <= $this->maxPayments; $i++) {
-
-                $item = (isset($payments[$i])) ? $payments[$i]['date_payment'] : '';
-          
-                $printables[] = $item;
-            }
-            $voucher->printables = $printables;
-            return $voucher;
-        });
-
-
-        return $printableVouchers->where('last_payment_date', '!=', false)->groupBy('user_id');
+    }
+    private function getNewBalance($total, $amount, $totalRegisterPayments)
+    {
+        return $total - $totalRegisterPayments*$amount;
     }
 }

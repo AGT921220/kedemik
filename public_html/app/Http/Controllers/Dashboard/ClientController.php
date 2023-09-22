@@ -53,6 +53,10 @@ class ClientController extends Controller
             $imageProfile = '/images/profiles/'.$filename;
         }
         $user->user_profile= $imageProfile;
+        $user->address = $request->input('address');
+        $user->phone = $request->input('phone');
+        $user->creation_date = $request->input('creation_date');
+
         $user->password =Hash::make('cliente');
 
         if ($user->save()) {

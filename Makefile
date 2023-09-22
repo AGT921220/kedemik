@@ -5,6 +5,6 @@
 
 install:
 	echo "Docker Exec";\
-	sudo docker exec -it php-kedemik composer install
+	docker exec -it php-kedemik composer install
 enter:
-	sudo docker exec -it php-kedemik /bin/sh
+	docker exec -it php-kedemik /bin/bash
